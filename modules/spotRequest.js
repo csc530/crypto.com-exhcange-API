@@ -56,13 +56,17 @@ class SpotRequest {
     constructor(id, method, apiKey, params, time, apiSecret) {
         this.id = this.method = this.apiKey = this.params =
             this.time = this.sig = null;
-        if (!!method && typeof method === 'string' && !!time && typeof time === 'object') {
+        if (!!method && typeof method === 'string' && !!time && typeof time === 'number') {
             this.id = id;
             this.method = method;
             this.apiKey = apiKey;
             this.params = params;
             this.time = time;
             this.sig = signRequest(this, apiKey, apiSecret);
+        }
+        else
+        {
+            console.error('Method ' + method + '\ntime ' + time + '');
         }
     }
     /**
