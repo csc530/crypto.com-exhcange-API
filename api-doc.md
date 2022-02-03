@@ -5,8 +5,6 @@
 ## Flow of Contents
 
 - [Spot Exchange API](#spot-exchange-api)
-  - [Flow of Contents](#flow-of-contents)
-  - [Introduction](#introduction)
   - [API keys](#api-keys)
     - [My keys](#my-keys)
   - [Rate Limits](#rate-limits)
@@ -307,3 +305,4 @@ If this scenario happens in your case, there are three options:
 1. Don't allow whole number values to have decimals
 2. Ensure the payload casts number values properly before concatenating
 3. Wrap the values in quotation marks to make them strings -- this is allowed by the server even if the parameter is marked as a number data type
+
