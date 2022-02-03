@@ -1,0 +1,24 @@
+{
+  "name": "crypto-exchange-api",
+  "version": "1.0.0",
+  "description": "My use of the crypto exchange api to view crypto prices and make trades.",
+  "main": "test.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "crypto",
+    "nodejs",
+    "crypto-js",
+    "exhange",
+    "crypto-exchange",
+    "trading",
+    "dotenv"
+  ],
+  "author": "Christofer Cousins",
+  "license": "ISC",
+  "dependencies": {
+    "crypto-js": "^4.1.1",
+    "dotenv": "^16.0.0"
+  }
+}
