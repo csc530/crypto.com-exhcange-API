@@ -27,10 +27,16 @@
   - [Common API Reference](#common-api-reference)
     - [Naming Conventions](#naming-conventions)
     - [Request Format](#request-format)
-    - [Response and Reason Codes](#response-and-reason-codes)
+    - [Response Format](#response-format)
+      - [Error Response Format](#error-response-format)
+      - [Response Codes and Reason](#response-codes-and-reason)
+      - [Websocket Termination Codes](#websocket-termination-codes)
   - [Digital Signature](#digital-signature)
     - [Example](#example)
     - [Issues](#issues)
+  - [Common methods](#common-methods)
+    - [`public/auth`](#publicauth)
+      - [Request Params](#request-params)
 
 ## Introduction
 
@@ -174,16 +180,35 @@ The Applies To section under each API allows you to see which platform supports 
 
 The following information applies to both REST API and websockets commands:
 
-| Name    | Type   | Required | Description                                                                                                |
-| ------- | ------ | -------- | ---------------------------------------------------------------------------------------------------------- |
+| Name    | Type   | Required | Description                                                                                          |
+| ------- | ------ | -------- | ---------------------------------------------------------------------------------------------------- |
 | id      | long   | N        | Request Identifier, Range: 0 to 9,223,372,036,854,775,807, Response message will contain the same id |
-| method  | string | Y        | The method to be invoked                                                                                   |
-| params  | object | N        | Parameters for the methods                                                                                 |
-| api_key | string | Depends  | API key. See Digital Signature section                                                                     |
-| sig     | string | Depends  | [Digital signature. See Digital Signature section](#digital-signature)                                                           |
-| nonce   | long   | Y        | Current timestamp (milliseconds since the Unix epoch)                                                      |
+| method  | string | Y        | The method to be invoked                                                                             |
+| params  | object | N        | Parameters for the methods                                                                           |
+| api_key | string | Depends  | API key. See Digital Signature section                                                               |
+[Digital signature. See Digital Signature section](#digital-signature)
+| nonce   | long   | Y        | Current timestamp (milliseconds since the Unix epoch)                                                |
 
-### Response and Reason Codes
+### Response Format
+
+Name|Type|Description
+--|--|--
+id| long| Original request identifier
+method| string| Method invoked
+result| object | Result object
+code| int | 0 for success, see below for full list
+message| string | (optional) For server or error messages
+original|  string| (optional) Original request as a string, for error cases
+
+#### Error Response Format
+
+Due to the asynchronous nature of websocket requests, a robust and consistent error response is crucial in order to match the response with the request.
+
+To ensure API consistency for websocket error responses, if the id and method is omitted in the original request, id will have a value of -1 and method will have a value of ERROR.
+
+The original request will be returned as an escaped string in the original field.
+
+#### Response Codes and Reason
   
 These codes are shared by both the response, and the reason field for rejected orders.
 
@@ -226,6 +251,14 @@ These codes are shared by both the response, and the reason field for rejected o
 | 40006 | 400  | MG_BLOCKED_BORROW               | Borrow has been suspended. Please try again later.                                                                         |
 | 40007 | 400  | MG_BLOCKED_NEW_ORDER            | Placing new order has been suspended. Please try again later.                                                              |
 | 50001 | 400  | DW_CREDIT_LINE_NOT_MAINTAINED   | Please ensure your credit line is maintained and try again later.                                                          |
+
+#### Websocket Termination Codes
+
+Code| Description
+-|-
+1000| Normal disconnection by server, usually when the heartbeat isn't handled properly
+1006| Abnormal disconnection
+1013 |Server restarting -- try again later
 
 ## Digital Signature
 
@@ -306,3 +339,24 @@ If this scenario happens in your case, there are three options:
 2. Ensure the payload casts number values properly before concatenating
 3. Wrap the values in quotation marks to make them strings -- this is allowed by the server even if the parameter is marked as a number data type
 
+## Common methods
+
+### `public/auth`
+
+To access user-specific websocket methods, `public/auth` has to be invoked with a valid API key and Digital Signature (refer to [Digital Signature](#digital-signature)).
+
+**_REST API_ calls do _NOT_ need to do this.**
+
+**Important Note:**
+
+**We recommend adding a 1-second sleep after establishing the websocket connection, and before requests are sent.**
+This will avoid occurrences of rate-limit (`TOO_MANY_REQUESTS`) errors, as the websocket rate limits are pro-rated based on the calendar-second that the websocket connection was opened.
+
+#### Request Params
+
+Name |Type| Description
+-|-|-
+api_key |string |API key
+sig |string| [Digital Signature](#digital-signature)
+
+Applies To: [Websocket (User API)](#websocket-root)
