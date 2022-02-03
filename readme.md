@@ -1,6 +1,6 @@
 # My API
 
-This is a personal project for my own growth and exploration of crytpo.com V2 API.
+This is a personal project for my own growth and exploration of crytpo.com V2 API for spot trades.
 
 I decided to make a repo in case I make anything worthwhile or an actual app here.
 
