@@ -8,6 +8,7 @@
     },
     "conventionalCommits.scopes": [
         "main",
-        "docs"
+        "docs",
+        "examples"
     ]
 }
