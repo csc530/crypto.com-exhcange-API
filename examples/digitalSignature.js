@@ -1,8 +1,10 @@
 /* From https://exchange-docs.crypto.com/spot/index.html#digital-signature */
 //loads env vars from .env file
-const { parsed: keys } = require("dotenv").config();
+const { parsed: keys } = require("dotenv").config(
+    //REPLACE: with .env path
+    { path: './../.env' }
+);
 const crypto = require("crypto-js");
-
 const signRequest = (request_body, api_key, secret) => {
     const { id, method, params, nonce } = request_body;
 
