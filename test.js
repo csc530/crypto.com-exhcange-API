@@ -1,4 +1,3 @@
-// UAT (Use acceptance testing) endpoint
 const endpoint = 'https://uat-api.3ona.co/v2/{method}';
 
 //below code from https://exchange-docs.crypto.com/spot/index.html#digital-signature

@@ -1,6 +1,9 @@
 {
 	"recommendations": [
-		"tabnine.tabnine-vscode"
+		"bierner.markdown-preview-github-styles",
+		"bierner.markdown-footnotes",
+		"yzhang.markdown-all-in-one",
+		"bierner.markdown-checkbox"
 	],
 	
 }

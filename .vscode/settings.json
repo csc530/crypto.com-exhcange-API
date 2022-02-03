@@ -1,9 +1,13 @@
 {
     "markdown.extension.toc.omittedFromToc": {
-        "readme.md": [
+        "api-doc.md": [
             "## Introduction",
             "## Table of Contents",
             "## Flow of Contents"
         ]
-    }
+    },
+    "conventionalCommits.scopes": [
+        "main",
+        "docs"
+    ]
 }
