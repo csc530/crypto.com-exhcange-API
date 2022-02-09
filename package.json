@@ -19,12 +19,13 @@
   "license": "ISC",
   "dependencies": {
     "crypto-js": "^4.1.1",
-    "dotenv": "^16.0.0"
+    "dotenv": "^16.0.0",
+    "sockjs": "^0.3.24",
+    "ws": "^8.5.0"
   },
   "directories": {
     "example": "examples"
   },
-  "devDependencies": {},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/csc530/crypto-exhcange-API.git"

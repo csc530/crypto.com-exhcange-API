@@ -186,7 +186,7 @@ The following information applies to both REST API and websockets commands:
 | method  | string | Y        | The method to be invoked                                                                             |
 | params  | object | N        | Parameters for the methods                                                                           |
 | api_key | string | Depends  | API key. See Digital Signature section                                                               |
-[Digital signature. See Digital Signature section](#digital-signature)
+|sig| string| Depends|[Digital signature](#digital-signature)
 | nonce   | long   | Y        | Current timestamp (milliseconds since the Unix epoch)                                                |
 
 ### Response Format
