@@ -185,8 +185,7 @@ The following information applies to both REST API and websockets commands:
 | id      | long   | N        | Request Identifier, Range: 0 to 9,223,372,036,854,775,807, Response message will contain the same id |
 | method  | string | Y        | The method to be invoked                                                                             |
 | params  | object | N        | Parameters for the methods                                                                           |
-| api_key | string | Depends  | API key. See Digital Signature section                                                               |
-[Digital signature. See Digital Signature section](#digital-signature)
+| api_key | string | Depends  | API key. Refer to [Digital signature](#digital-signature)
 | nonce   | long   | Y        | Current timestamp (milliseconds since the Unix epoch)                                                |
 
 ### Response Format
