@@ -95,6 +95,13 @@ class SpotRequest {
         this.sig = signRequest(this, this.apiKey, apiSecret);
         return this.sig;
     }
+    /**
+     * 
+     * @returns {String}
+     */
+    toString(){
+        return String(this.id);
+    }
 
 }
 
