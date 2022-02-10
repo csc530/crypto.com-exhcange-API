@@ -2,5 +2,6 @@
 //returns an object with all vars from .env
 //rename a decontructed variable
 const {parsed: envVars} = require('dotenv').config();
-console.log(envVars);
-console.log();
+console.log(`Environment variables from .env file:\n${envVars}`);
+//logs all the other environment (from the current running OS) variables
+console.log(`Local environment variables:${process.env.toString()}`);
