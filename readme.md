@@ -6,7 +6,7 @@ I decided to make a repo in case I make anything worthwhile or an actual app her
 
 ## [API Doc](api-doc.md)
 
-This is a personnal document made from crypto.com exchange's [official documentation](https://exchange-docs.crypto.com/spot/index.html). I made it more applicable for me and my learning with not much changes, honestly.
+This is a personal document made from crypto.com exchange's [official documentation](https://exchange-docs.crypto.com/spot/index.html). I made it more applicable for me and my learning with not much changes, honestly.
 
 ### Disclaimer
 
