@@ -99,7 +99,7 @@ Here’s an example of browser headers for request made by `new WebSocket("wss:/
 ```
 
 - **Origin** – the origin of the client page, e.g. `https://javascript.info`. WebSocket objects are cross-origin by nature.
-  - **Cross-orgin** - they can traverse to multiple destination and thus the previous page is no longer the origin. I.e. 
+  - **Cross-orgin** - they can traverse to multiple destination and thus the previous page is no longer the origin. I.e.
 
   There are no special headers or other limitations. Old servers are unable to handle WebSocket anyway, so there are no compatibility issues. But Origin header is important, as it allows the server to decide whether or not to talk WebSocket with this website.
 Connection: Upgrade – signals that the client would like to change the protocol.
