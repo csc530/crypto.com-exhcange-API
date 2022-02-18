@@ -13,7 +13,10 @@
     "exhange",
     "crypto-exchange",
     "trading",
-    "dotenv"
+    "dotenv",
+    "API",
+    "learn",
+    "tutorial"
   ],
   "author": "Christofer Cousins",
   "license": "ISC",
