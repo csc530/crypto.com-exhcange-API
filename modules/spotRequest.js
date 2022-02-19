@@ -126,10 +126,9 @@ function generateSignature(request) {
 	return this.sig;
 }
 
-const send = {
+module.exports = {
 	createSpotRequest,
 	generateSignature,
 	signRequest,
 	SpotRequest,
 };
-module.exports = send;
