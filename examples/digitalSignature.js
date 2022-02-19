@@ -4,11 +4,12 @@ const { parsed: keys } = require("dotenv").config(
     //REPLACE: with .env path
     { path: './../.env' }
 );
+
 const crypto = require("crypto-js");
 const signRequest = (request_body, api_key, secret) => {
     const { id, method, params, nonce } = request_body;
 
-    /**preamlbe to order params in ascending (alphabetical) order**/
+    /**preamble to order params in ascending (alphabetical) order**/
     function isObject(obj) { return obj !== undefined && obj !== null && obj.constructor == Object; }
     function isArray(obj) { return obj !== undefined && obj !== null && obj.constructor == Array; }
     function arrayToString(obj) { return obj.reduce((a, b) => { return a + (isObject(b) ? objectToString(b) : (isArray(b) ? arrayToString(b) : b)); }, ""); }

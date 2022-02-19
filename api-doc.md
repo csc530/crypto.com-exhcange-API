@@ -31,13 +31,13 @@
       - [Error Response Format](#error-response-format)
       - [Response Codes and Reason](#response-codes-and-reason)
       - [Websocket Termination Codes](#websocket-termination-codes)
-  - [Digital Signature](#digital-signature)
+  - [Digital Signature - `public/auth`](#digital-signature---publicauth)
     - [Example](#example)
     - [Issues](#issues)
   - [Common methods](#common-methods)
     - [`public/auth`](#publicauth)
       - [Request Params](#request-params)
-
+  
 ## Introduction
 
 Welcome to my markdowned edition of the **Crypto.com Exchange V2 API** [reference documentation](https://exchange-docs.crypto.com/spot/index.html?javascript#introduction).
@@ -185,19 +185,19 @@ The following information applies to both REST API and websockets commands:
 | id      | long   | N        | Request Identifier, Range: 0 to 9,223,372,036,854,775,807, Response message will contain the same id |
 | method  | string | Y        | The method to be invoked                                                                             |
 | params  | object | N        | Parameters for the methods                                                                           |
-| api_key | string | Depends  | API key. Refer to [Digital signature](#digital-signature)
+| api_key | string | Depends  | API key see [Digital signature](#digital-signature---publicauth)                                     |
 | nonce   | long   | Y        | Current timestamp (milliseconds since the Unix epoch)                                                |
 
 ### Response Format
 
-Name|Type|Description
---|--|--
-id| long| Original request identifier
-method| string| Method invoked
-result| object | Result object
-code| int | 0 for success, see below for full list
-message| string | (optional) For server or error messages
-original|  string| (optional) Original request as a string, for error cases
+| Name     | Type   | Description                                              |
+| -------- | ------ | -------------------------------------------------------- |
+| id       | long   | Original request identifier                              |
+| method   | string | Method invoked                                           |
+| result   | object | Result object                                            |
+| code     | int    | 0 for success, see below for full list                   |
+| message  | string | (optional) For server or error messages                  |
+| original | string | (optional) Original request as a string, for error cases |
 
 #### Error Response Format
 
@@ -253,13 +253,13 @@ These codes are shared by both the response, and the reason field for rejected o
 
 #### Websocket Termination Codes
 
-Code| Description
--|-
-1000| Normal disconnection by server, usually when the heartbeat isn't handled properly
-1006| Abnormal disconnection
-1013 |Server restarting -- try again later
+| Code | Description                                                                       |
+| ---- | --------------------------------------------------------------------------------- |
+| 1000 | Normal disconnection by server, usually when the heartbeat isn't handled properly |
+| 1006 | Abnormal disconnection                                                            |
+| 1013 | Server restarting -- try again later                                              |
 
-## Digital Signature
+## Digital Signature - `public/auth`
 
 For REST API, only the private methods require a Digital Signature (as "sig") and API key (as "api_key") to be passed in. These private endpoints are only accessible by authenticated users.
 
@@ -342,7 +342,7 @@ If this scenario happens in your case, there are three options:
 
 ### `public/auth`
 
-To access user-specific websocket methods, `public/auth` has to be invoked with a valid API key and Digital Signature (refer to [Digital Signature](#digital-signature)).
+[Digital Signature](#digital-signature---publicauth)
 
 **_REST API_ calls do _NOT_ need to do this.**
 
@@ -353,9 +353,11 @@ This will avoid occurrences of rate-limit (`TOO_MANY_REQUESTS`) errors, as the w
 
 #### Request Params
 
-Name |Type| Description
--|-|-
-api_key |string |API key
-sig |string| [Digital Signature](#digital-signature)
+| Name    | Type   | Description                                          |
+| ------- | ------ | ---------------------------------------------------- |
+| api_key | string | API key                                              |
+| sig[^2] | string | [Digital Signature](#digital-signature---publicauth) |
+
+[^2]: signature
 
 Applies To: [Websocket (User API)](#websocket-root)
