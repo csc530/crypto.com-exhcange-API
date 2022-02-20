@@ -1,3 +1,5 @@
+//TODO make this nice
+
 const ws = require('ws');
 // ? Sending information
 // We will send a hello message to the ech websocket server
@@ -10,11 +12,15 @@ echo.on('open', websocket => {
 	echo.send('hello', err => {
 		//A callback function that could have an error
 		const newMSG = "I'm glad you got my message";
-		echo.send(newMSG);
+        console.log('Hello message sent\n');
+		echo.send(newMSG, err=>console.error('Thank you msg sent\n'));
+        // if close was outside of the brackets the ws is closed
+        // b4 the thank you msg is sent
+        echo.close();
 	});
 
     //ping server
-	echo.ping('ping', false, err => console.error(err));
+	// echo.ping('ping', false)
 });
 echo.on('message', (msg, isbinary) => {
 	console.log(`Incoming message: ${msg}`);
@@ -22,6 +28,11 @@ echo.on('message', (msg, isbinary) => {
 	// console.debug(msg);
 	//   console.dir(msg);
 	//Respond to the message
+    if(msg === 'hello')
 	echo.send(msg, err => (err ? console.error(err) : null));
 });
 echo.on('pong', data => console.log('Ping-pong: ' + data));
+echo.on('close', code => console.log(code+"\nBye-bye"))
+
+// ? NOTE a websocket will throw an error if you try to close it when it's sending a message 
+//refer to ln 25-26 and ln 17
