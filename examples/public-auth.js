@@ -6,10 +6,9 @@ const methods = require('../modules/methods');
 const spotRequest = require('../modules/spotRequest');
 const key = keys.test_key;
 const secret = keys.test_secret;
-const crypto = require('crypto-js');
 
 //create a spot request object, only to authorize the connection
-let request = spotRequest.createSpotRequest(53, methods.public.auth, key, {}, new Date().getTime());
+let request = new spotRequest.SpotRequest(53, methods.public.auth, key, {}, new Date().getTime());
 
 /* To open a web socket connection only enter the endpoint and everything else a parameter in the messages(send)*/
 const websocket = new ws.WebSocket(endpoints.uat.websocket.user);
