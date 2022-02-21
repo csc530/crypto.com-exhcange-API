@@ -4,8 +4,12 @@ const { parsed: keys } = require('dotenv').config({ path: '../.env' });
 const endpoints = require('../modules/endpoints');
 const methods = require('../modules/methods');
 const spotRequest = require('../modules/spotRequest');
+const key = keys.test_key;
+const secret = keys.test_secret;
+const crypto = require('crypto-js');
+
 //create a spot request object, only to authorize the connection
-let request = spotRequest.createSpotRequest(53, methods.public.auth, keys.trade_api, {}, new Date().getTime());
+let request = spotRequest.createSpotRequest(53, methods.public.auth, key, {}, new Date().getTime());
 
 /* To open a web socket connection only enter the endpoint and everything else a parameter in the messages(send)*/
 const websocket = new ws.WebSocket(endpoints.uat.websocket.user);
@@ -16,12 +20,11 @@ websocket.on('error', err => {
 websocket.on('open', () => {
     console.log('websocket opened to - ' + websocket.url);
     //genereate the digital Signature
-    request.generateSignature(keys.read_secret);
+    request.generateSignature(secret);
     //when the connection is opened send (JSON) info
     //for their method and it's required parameters
-    const send = request.toString();
+    const send = request.stringify();
     console.log("send params = \n" + send);
-
     websocket.send(send)
 });
 
@@ -33,3 +36,4 @@ websocket.on('close', (code, reason) => {
     console.log("\nWebSocket closed");
     console.log(`Exit code: ${code}\nReason: ${reason}`);
 });
+
