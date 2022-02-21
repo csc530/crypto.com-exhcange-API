@@ -91,28 +91,8 @@ class SpotRequest {
 	 * A JSON representation of the request
 	 * @returns {String} a string representation of this API request
 	 */
-	toString() {
-		const keys = Object.keys(this);
-		const values = keys.map(key => this[key]);
-		let string = '{';
-		for (let i = 0; i < keys.length; i++) {
-			if (keys[i] === 'params') string += `"${keys[i]}":{` + objectToString(values[i]) + '}';
-			/*{
-				for (const param in values[i]) {
-					if (Object.hasOwnProperty.call(values[i], param)) {
-						const element = values[i][param];
-						
-					}
-				}
-			}*/
-			else if (typeof values[i] === 'string')
-				string += `"${keys[i]}":"${values[i]}"`;
-			else
-				string += `"${keys[i]}":${values[i]}`;
-			if (i !== keys.length - 1)
-				string += ',';
-		}
-		return string + '}';
+	stringify() {
+		return JSON.stringify(this);
 	}
 }
 
