@@ -6,6 +6,14 @@ const { parsed: keys } = require("dotenv").config(
 );
 
 const crypto = require("crypto-js");
+/**
+     * From https://exchange-docs.crypto.com/spot/index.html#digital-signature
+     * Generate digital signature for a request using API key secret
+     * @param {SpotRequest} request_body full API request's body
+     * @param {String} api_key public API key
+     * @param {String} secret secret API key
+     * @returns {String} the request's body the digital signature = request body's hex value encoded with API secret
+     */
 const signRequest = (request_body, api_key, secret) => {
     const { id, method, params, nonce } = request_body;
 
@@ -40,8 +48,7 @@ let request = {
     params: {
         order_id: 53287421324
     },
-    nonce: 1587846358253,
+    nonce: new Date().getTime(),//1587846358253 example's dummy value,
 };
 
-const requestBody = JSON.stringify(signRequest(request, apiKey, apiSecret));
-console.log(requestBody);
+console.log(signRequest(request, apiKey, apiSecret));

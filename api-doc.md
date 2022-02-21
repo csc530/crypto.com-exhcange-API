@@ -37,6 +37,8 @@
   - [Common methods](#common-methods)
     - [`public/auth`](#publicauth)
       - [Request Params](#request-params)
+  - [public/get-instruments](#publicget-instruments)
+    - [Response Attributes](#response-attributes)
   
 ## Introduction
 
@@ -297,7 +299,6 @@ const signRequest = (request_body, api_key, secret) => {
   const paramsString = objectToString(params);
 
   console.log(paramsString);
-  /**request url + params*/ 
   const sigPayload = method + id + api_key + paramsString + nonce;
   /**encode request string with crypto[graphic] key's hex value**/
   request_body.sig = crypto.HmacSHA256(sigPayload, secret).toString(crypto.enc.Hex);
@@ -361,3 +362,28 @@ This will avoid occurrences of rate-limit (`TOO_MANY_REQUESTS`) errors, as the w
 [^2]: signature
 
 Applies To: [Websocket (User API)](#websocket-root)
+
+## public/get-instruments
+
+Provides information on all supported instruments (e.g. BTC_USDT)
+
+For the websocket, as a public function, it can be called without authentication.
+
+Applies To
+REST Websocket (User API)
+
+REST Method
+GET
+
+### Response Attributes
+
+An array of instruments, consisting of:
+
+|Name | Type | Description |
+-|-|-|-
+instrument_name |string| e.g. BTC_USDT
+quote_currency string e.g. USDT
+base_currency string e.g. BTC
+price_decimals integer Maximum decimal places for specifying price
+quantity_decimals integer Maximum decimal places for specifying quantity
+margin_trading_enabled boolean true or false

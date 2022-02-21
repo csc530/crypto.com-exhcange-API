@@ -1,6 +1,14 @@
 
 const methods = {
-    auth: 'public/auth'
+    public: {
+        auth: 'public/auth',
+        get: {
+            instruments: 'public/get-instruments',
+        }
+    },
+    private:{
+
+    }
 }
 
 
