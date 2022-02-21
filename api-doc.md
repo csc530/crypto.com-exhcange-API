@@ -9,34 +9,26 @@
     - [My keys](#my-keys)
   - [Rate Limits](#rate-limits)
     - [REST API](#rest-api)
-      - [15 requests per 100ms each](#15-requests-per-100ms-each)
-      - [30 requests per 100ms](#30-requests-per-100ms)
-      - [**1 requests per second**](#1-requests-per-second)
-      - [3 requests per 100ms each](#3-requests-per-100ms-each)
     - [For public market data calls, rate limits are per API method, per IP address](#for-public-market-data-calls-rate-limits-are-per-api-method-per-ip-address)
-      - [100 requests per second each](#100-requests-per-second-each)
     - [Websockets](#websockets)
     - [**Important Note**](#important-note)
   - [Endpoints](#endpoints)
     - [REST API Root](#rest-api-root)
-      - [UAT [^UAT] - Sandbox](#uat-uat---sandbox)
-      - [Production](#production)
     - [Websocket Root](#websocket-root)
-      - [UAT Sandbox](#uat-sandbox)
-      - [Production](#production-1)
   - [Common API Reference](#common-api-reference)
     - [Naming Conventions](#naming-conventions)
     - [Request Format](#request-format)
     - [Response Format](#response-format)
-      - [Error Response Format](#error-response-format)
-      - [Response Codes and Reason](#response-codes-and-reason)
-      - [Websocket Termination Codes](#websocket-termination-codes)
   - [Digital Signature - `public/auth`](#digital-signature---publicauth)
     - [Example](#example)
     - [Issues](#issues)
   - [Common methods](#common-methods)
+    - [Websocket Heartbeats `public/respond-heartbeat`](#websocket-heartbeats-publicrespond-heartbeat)
     - [`public/auth`](#publicauth)
-      - [Request Params](#request-params)
+  - [public/get-instruments](#publicget-instruments)
+    - [Response Attributes](#response-attributes)
+[Websocket Heartbeats ``](#websocket-heartbeats-publicrespond-heartbeat)
+    - [`public/auth`](#publicauth)
   - [public/get-instruments](#publicget-instruments)
     - [Response Attributes](#response-attributes)
   
@@ -340,6 +332,17 @@ If this scenario happens in your case, there are three options:
 3. Wrap the values in quotation marks to make them strings -- this is allowed by the server even if the parameter is marked as a number data type
 
 ## Common methods
+
+### Websocket Heartbeats `public/respond-heartbeat`
+
+For websocket connections, the system will send a heartbeat message to the client every 30 seconds.
+
+The client must respond back with the `public/respond-heartbeat` method, using the same matching id, within 5 seconds, or the connection will break.
+
+Request Params - None
+
+Applies To
+Websocket (User API), Websocket (Market Data Subscriptions)
 
 ### `public/auth`
 
